@@ -16,16 +16,17 @@ module Api
                         data={}
                         data[:message] = "success"
                         data[:email] = email
-                        data[:auth_token] = User.where(email: email , password: password).auth_token
-
-                        return response_data data , true
+                        data[:auth_token] = User.where(email: email , password: password).first["auth_token"]
+                        data[:isvalid] = true
+                        return response_data data , 200
 
                     else
 
                       data={}
                       data[:message] = "failure"
+                      data[:isvalid] = false
 
-                      return response_data data , false
+                      return response_data data , 200
 
 
                     end
@@ -35,7 +36,9 @@ module Api
 
                 data={}
                 data[:message] = "not present"
-                return response_data data , false
+                data[:isvalid] = false
+
+                return response_data data , 200
               end
 
           end
@@ -57,13 +60,14 @@ module Api
               data[:message] = "new user"
               data[:email] = email
               data[:auth_token] = auth_token
+              data[:isvalid] = false
 
-              return response_data data , true
+              return response_data data , 200
 
             end
 
 
-            return response_data nil, false
+            return response_data nil, 200
 
 
           end
