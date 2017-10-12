@@ -1,0 +1,2 @@
+class AddPhoneToUser < ApplicationRecord
+end
