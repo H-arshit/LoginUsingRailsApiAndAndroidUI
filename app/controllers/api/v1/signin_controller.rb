@@ -1,14 +1,17 @@
 module Api
 
-    module v1
+    module V1
 
       class SigninController < ApiController
 
-          def signin email,password
+          def signin
 
-              if User.where(email: email)
+              email = params[:email]
+              password = params[:password]
 
-                    if User.where(email: email , password: password)
+              if User.where(email: email).first
+
+                    if User.where(email: email , password: password).first
 
                         data={}
                         data[:message] = "success"
@@ -39,12 +42,15 @@ module Api
 
 
 
-          def signup email , password , phone_no
+          def signup
+            email = params[:email]
+            password = params[:password]
+            phone_no = params[:phone_no]
 
             unless User.where(email: email , password: password).first
 
                 auth_token = SecureRandom.hex
-                
+
                User.create(email: email , password: password , phone_no: phone_no ,auth_token: auth_token )
 
               data = {}

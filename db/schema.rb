@@ -10,13 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171012183206) do
-
-  create_table "add_phone_to_users", force: :cascade do |t|
-    t.string "phone_no"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20171012190109) do
 
   create_table "users", force: :cascade do |t|
     t.string "email"
@@ -24,6 +18,7 @@ ActiveRecord::Schema.define(version: 20171012183206) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "auth_token"
+    t.string "phone_no"
   end
 
 end
