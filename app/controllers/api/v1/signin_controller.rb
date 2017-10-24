@@ -3,6 +3,48 @@ module Api
     module V1
 
       class SigninController < ApiController
+
+
+        def userimage
+
+          content = params[:image]
+          content.gsub!('\\r', "\r")
+          content.gsub!('\\n', "\n")
+          decode_base64_content = Base64.decode64(content)
+
+
+
+              filename = SecureRandom.hex + ".JPG"
+              filepath = Dir.pwd + "/public/userimage/" + filename
+
+              File.open(filepath,'wb') do |file|
+              file.write(decode_base64_content)
+              end
+
+              userimage  =  User.where(email: params[:email] , auth_token: params[:auth_token]).first
+              userimage.image = filepath
+              if userimage.save!
+
+                data={}
+                data[:message] = "Successful"
+                data[:isvalid] = true
+                return response_data data, 200
+
+
+              else
+
+              data={}
+              data[:message] = "Failed"
+              data[:isvalid] = false
+              return response_data data, 200
+
+            end
+
+
+            end
+
+
+
           def resetpswd
 
 
@@ -108,14 +150,6 @@ module Api
               return response_data data , 200
 
             end
-
-
-
-
-
-
-
-
 
           end
 

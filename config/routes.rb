@@ -6,6 +6,8 @@ Rails.application.routes.draw do
           post "signin" => "signin#signin"
           post "signup" => "signin#signup"
           post "resetpswd" => "signin#resetpswd"
+          post "userimage" => "signin#userimage"
+
 
     end
   end
