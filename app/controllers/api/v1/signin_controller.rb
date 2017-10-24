@@ -3,6 +3,43 @@ module Api
     module V1
 
       class SigninController < ApiController
+          def resetpswd
+
+
+
+
+            email = params[:email]
+            password = params[:password]
+            phone_no = params[:phone_no]
+
+
+            if User.where(email: email , phone_no: phone_no).first
+
+              user_data = User.where(email: email , phone_no: phone_no).first
+              user_data.password = password
+              user_data.save!
+
+
+              data={}
+              data[:message] = "Update Password Successful"
+              data[:isvalid] = true
+              return response_data data, 200
+
+
+            else
+              data={}
+              data[:message] = "No Recoed Match"
+              data[:isvalid] = false
+              return response_data data, 200
+
+
+
+            end
+
+
+
+          end
+
 
           def signin
 
@@ -71,6 +108,9 @@ module Api
               return response_data data , 200
 
             end
+
+
+
 
 
 
