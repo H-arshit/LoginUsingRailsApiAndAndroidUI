@@ -14,7 +14,7 @@ module Api
                     if User.where(email: email , password: password).first
 
                         data={}
-                        data[:message] = "success"
+                        data[:message] = "Success"
                         data[:email] = email
                         data[:auth_token] = User.where(email: email , password: password).first["auth_token"]
                         data[:isvalid] = true
@@ -22,11 +22,10 @@ module Api
 
                     else
 
-                      data={}
-                      data[:message] = "failure"
-                      data[:isvalid] = false
-
-                      return response_data data , 200
+                       data={}
+                       data[:message] = "Failed"
+                       data[:isvalid] = false
+                       return response_data data , 200
 
 
                     end
@@ -34,9 +33,9 @@ module Api
 
               else
 
-                data={}
-                data[:message] = "not present"
-                data[:isvalid] = false
+                      data={}
+                      data[:message] = "User Not Present"
+                      data[:isvalid] = false
 
                 return response_data data , 200
               end
@@ -50,24 +49,32 @@ module Api
             password = params[:password]
             phone_no = params[:phone_no]
 
-            unless User.where(email: email , password: password).first
 
-                auth_token = SecureRandom.hex
+            if User.where(email: email).first
 
-               User.create(email: email , password: password , phone_no: phone_no ,auth_token: auth_token )
+              data={}
+              data[:message] = "Account Already Exists"
+              data[:isvalid] = false
+              return response_data data, 200
 
+
+            else
+
+              auth_token = SecureRandom.hex
+              User.create(email: email , password: password , phone_no: phone_no ,auth_token: auth_token )
               data = {}
-              data[:message] = "new user"
+              data[:message] = "New User Created"
               data[:email] = email
               data[:auth_token] = auth_token
-              data[:isvalid] = false
+              data[:isvalid] = true
 
               return response_data data , 200
 
             end
 
 
-            return response_data nil, 200
+
+
 
 
           end
