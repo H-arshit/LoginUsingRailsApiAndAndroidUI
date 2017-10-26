@@ -14,7 +14,7 @@ module Api
 
 
 
-              filename = SecureRandom.hex + ".JPG"
+              filename = SecureRandom.hex + ".png"
               filepath = Dir.pwd + "/public/userimage/" + filename
 
               File.open(filepath,'wb') do |file|
@@ -93,6 +93,7 @@ module Api
                     if User.where(email: email , password: password).first
 
                         data={}
+                        data[:name] = User.where(email: email , password: password).name
                         data[:message] = "Success"
                         data[:email] = email
                         data[:auth_token] = User.where(email: email , password: password).first["auth_token"]
@@ -127,7 +128,7 @@ module Api
             email = params[:email]
             password = params[:password]
             phone_no = params[:phone_no]
-
+            name = params[:name]
 
             if User.where(email: email).first
 
@@ -140,7 +141,7 @@ module Api
             else
 
               auth_token = SecureRandom.hex
-              User.create(email: email , password: password , phone_no: phone_no ,auth_token: auth_token )
+              User.create(email: email , password: password , phone_no: phone_no ,auth_token: auth_token , name: name)
               data = {}
               data[:message] = "New User Created"
               data[:email] = email
