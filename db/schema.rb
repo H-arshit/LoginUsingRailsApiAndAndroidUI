@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024183521) do
+ActiveRecord::Schema.define(version: 20171026100955) do
+
+  create_table "festivals", force: :cascade do |t|
+    t.date "day"
+    t.string "name"
+    t.string "place"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email"
@@ -20,6 +28,7 @@ ActiveRecord::Schema.define(version: 20171024183521) do
     t.string "auth_token"
     t.string "phone_no"
     t.string "image", default: "/userimage/default.png"
+    t.string "name"
   end
 
 end
