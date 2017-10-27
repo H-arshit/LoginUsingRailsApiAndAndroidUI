@@ -146,6 +146,7 @@ module Api
               data[:message] = "New User Created"
               data[:email] = email
               data[:auth_token] = auth_token
+              data[:name] = name
               data[:isvalid] = true
 
               return response_data data , 200
