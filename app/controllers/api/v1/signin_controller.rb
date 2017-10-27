@@ -22,7 +22,7 @@ module Api
               end
 
               userimage  =  User.where(email: params[:email] , auth_token: params[:auth_token]).first
-              userimage.image = filepath
+              userimage.image = "/userimage/" + filename
               if userimage.save!
 
                 data={}
