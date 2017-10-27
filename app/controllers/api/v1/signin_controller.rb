@@ -93,7 +93,7 @@ module Api
                     if User.where(email: email , password: password).first
 
                         data={}
-                        data[:name] = User.where(email: email , password: password).name
+                        data[:name] = User.where(email: email , password: password).first.name
                         data[:message] = "Success"
                         data[:email] = email
                         data[:auth_token] = User.where(email: email , password: password).first["auth_token"]
